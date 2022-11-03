@@ -1,9 +1,9 @@
-import { createSlice , nanoid} from "@reduxjs/toolkit";
+import { createSlice, nanoid } from "@reduxjs/toolkit";
 import { fetchPosts } from "./postApi";
 const initialState: any = {
   status: "idle",
   posts: [
-    { id: 0, time: "", tags:[], title: "title 1", body: "content 1" },
+    { id: 0, time: "", tags: ["m"], title: "title 1", body: "content 1" },
   ],
   error: null,
 };
@@ -12,18 +12,16 @@ const postSlice = createSlice({
   name: "posts",
   initialState,
   reducers: {
-    addPost: (state: any, action: any) => { 
-
+    addPost: (state: any, action: any) => {
       state.posts = [...state.posts, action.payload];
-      console.log("new",state.posts);
-      
+      console.log("new", state.posts);
     },
-    deletePost: (state: any, action: any) => { 
-
-        state.posts = state.posts.filter((post:any)=>post.id!==action.payload)
-        console.log("new",state.posts);
-
-      },
+    deletePost: (state: any, action: any) => {
+      state.posts = state.posts.filter(
+        (post: any) => post.id !== action.payload
+      );
+      console.log("new", state.posts);
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchPosts.pending, (state, action) => {
@@ -32,16 +30,16 @@ const postSlice = createSlice({
     builder.addCase(fetchPosts.fulfilled, (state, action) => {
       state.status = "succeeded";
       //    Adding date and reactions
-      const loadedData = action.payload.map((post:any)=>{
+      const loadedData = action.payload.map((post: any) => {
         return {
-           ...post ,
-           id : nanoid(),
-           time :  new Date().toLocaleString() ,
-           tags : post.title.split(" ")
-        }
-      })
-      console.log("loaded data",loadedData);
-      
+          ...post,
+          id: nanoid(),
+          time: new Date().toLocaleString(),
+          tags: post.title.split(" "),
+        };
+      });
+      console.log("loaded data", loadedData);
+
       state.posts = [...state.posts, ...loadedData];
     });
     builder.addCase(fetchPosts.rejected, (state, action) => {
@@ -51,7 +49,7 @@ const postSlice = createSlice({
   },
 });
 
-export const { addPost  } = postSlice.actions;
-export const { deletePost  } = postSlice.actions;
+export const { addPost } = postSlice.actions;
+export const { deletePost } = postSlice.actions;
 
 export default postSlice.reducer;

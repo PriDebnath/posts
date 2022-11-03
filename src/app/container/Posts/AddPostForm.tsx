@@ -16,8 +16,7 @@ const AddPostForm = () => {
     },
     onSubmit: (values) => {
       //alert(JSON.stringify(values, null, 2));
- const data ={ ...values , id : nanoid() , time :  new Date().toLocaleString()}
- console.log('b',data);
+      const data ={ ...values , id : nanoid() , time :  new Date().toLocaleString() , tags : values.tags.split(',')}
  
       dispatch(addPost(data));
          navigate("/posts");

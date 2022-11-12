@@ -7,27 +7,18 @@ import { DialogContentText } from "@mui/material";
 import { DialogTitle } from "@mui/material";
 
 function FullPostModal(props: any) {
-  const { open, setOpen, post } = props;
+  const { openFullPost, setOpenFullPost, post } = props;
   const [scroll, setScroll] = useState<DialogProps["scroll"]>("paper");
 
   const handleClose = () => {
-    setOpen(false);
+    setOpenFullPost(false);
   };
 
-  const descriptionElementRef = React.useRef<HTMLElement>(null);
-  React.useEffect(() => {
-    if (open) {
-      const { current: descriptionElement } = descriptionElementRef;
-      if (descriptionElement !== null) {
-        descriptionElement.focus();
-      }
-    }
-  }, [open]);
 
   return (
     <div>
       <Dialog
-        open={open}
+        open={openFullPost}
         onClose={handleClose}
         scroll={scroll}
         aria-labelledby="scroll-dialog-title"
@@ -37,10 +28,10 @@ function FullPostModal(props: any) {
         <DialogContent dividers={scroll === "paper"}>
           <DialogContentText
             id="scroll-dialog-description"
-            ref={descriptionElementRef}
+            //  ref={descriptionElementRef}
             tabIndex={-1}
           >
-            {post.body}
+           {post.body}
           </DialogContentText>
           <DialogContentText sx={{ padding: "1rem 0 0.5rem 0", color: "blue" }}>
             {" "}
@@ -50,7 +41,7 @@ function FullPostModal(props: any) {
             sx={{ padding: "0.5rem 0 1rem 0", fontFamily: "mono" }}
           >
             {" "}
-            {post.time}
+            {new Date(post.time).toLocaleString()}
           </DialogContentText>
         </DialogContent>
 

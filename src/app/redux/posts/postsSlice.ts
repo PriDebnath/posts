@@ -3,7 +3,7 @@ import { fetchPosts } from "./postApi";
 const initialState: any = {
   status: "idle",
   posts: [
-    { id: 0, time: "", tags: ["m"], title: "title 1", body: "content 1" },
+    { id: 0, time: "", tags: ["js"], title: "JavaScript", body: "JavaScript, often abbreviated as JS, is an interpreted programming language that conforms to the ECMAScript specification. JavaScript is high-level, often just-in-time compiled, and multi-paradigm. It has curly-bracket syntax, dynamic typing, prototype-based object-orientation, and first-class functions." },
   ],
   error: null,
 };
@@ -34,11 +34,10 @@ const postSlice = createSlice({
         return {
           ...post,
           id: nanoid(),
-          time: new Date().toLocaleString(),
+          time: new Date().getTime(),
           tags: post.title.split(" "),
         };
-      });
-      console.log("loaded data", loadedData);
+      }).slice(1,10)
 
       state.posts = [...state.posts, ...loadedData];
     });

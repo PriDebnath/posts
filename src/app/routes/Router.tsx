@@ -6,10 +6,9 @@ import AddPostForm from '../container/Posts/AddPostForm'
 const Router = () => {
   return (
     <Routes>
-        <Route path='/posts' element={<Posts/>}>
+        <Route path='/' element={<Posts/>}>
           
         </Route>
-        <Route path='/add-post' element={<AddPostForm/>}/>
     </Routes>
   )
 }

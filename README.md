@@ -1,2 +1,2 @@
 ### hosted link 
-### https://postsbypritam.netlify.app/
+### https://postsbypri.netlify.app/
